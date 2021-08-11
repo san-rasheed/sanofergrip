@@ -43,11 +43,12 @@ else{
   $sql4="INSERT INTO  `transaction` (`senderid`,`receiverid`,`receivername`,`amount`,`date`) VALUES ('$sid','$rid','$rname','$amount',current_timestamp())";
   $mysqli->query($sql4);
 
-  $sql5="SELECT `transid` FROM `transaction` where `senderid`=$sid and `receiverid`=$rid";
-$result=$mysqli->query($sql5);
-$row=$result->fetch_array(MYSQLI_NUM);
 
-  echo '<div id="success"><h2>Sparks Bank</h2><p>Transaction Id: '.$row[0].'</p><p>Transaction amount of Rs. '.$amount.' from Sender id: '.$sid.' to Receiver id:  '.$rid.' is successful </p>  <div id="btndiv">    <a href="index.php"><button class="btn login_btn" >Ok</button> </a>   <a href="#" onclick="window.print()"><button class="btn login_btn" style="width:180px">Print the receipt</button></a>  </div>  </div>';
+$sql5="SELECT `transid` from `transaction` ORDER BY `transid` DESC LIMIT 1";
+  $mysqli->query($sql5);
+  $result=$mysqli->query($sql5);
+    $row=$result->fetch_array(MYSQLI_NUM);
+  echo '<div id="success"><h2>Sparks Bank</h2><p>Transaction id: '.$row[0].'</p><p>Transaction amount of Rs. '.$amount.' from Sender id: '.$sid.' to Receiver id:  '.$rid.' is successful </p>  <div id="btndiv">    <a href="index.php"><button class="btn login_btn" >Ok</button> </a>   <a href="#" onclick="window.print()"><button class="btn login_btn" style="width:180px">Print the receipt</button></a>  </div>  </div>';
 }
 }
 ?>
